@@ -1,9 +1,11 @@
 #include <iostream>
 #include "Time.h"
+#include "Schedule.h"
 using namespace std;
 
 int main()
 {
+    /*
     Time t1;
     Time t2(14, 30, 45, true);
     Time t3(2, 15, 0, false);
@@ -103,4 +105,11 @@ int main()
     else {
         cout << "\nt7 is invalid time" << endl;
     }
+    */
+
+    cout << "-------------------------------------\n";
+
+    Time start(9, 0, 0, true);
+    Schedule schedule(start, 45, 10, 20, 2, 6);
+    schedule.generateSchedule();
 }

@@ -211,62 +211,92 @@ bool Time::operator<=(const Time& obj) const&
     return (*this < obj) || (*this == obj);
 }
 
-//Time& Time::operator+=(float s)
-//{
-//    // TODO: insert return statement here
-//}
-//
-//Time& Time::operator-=(float s)
-//{
-//    // TODO: insert return statement here
-//}
-//
-//Time& Time::operator+=(int m)
-//{
-//    // TODO: insert return statement here
-//}
-//
-//Time& Time::operator-=(int m)
-//{
-//    // TODO: insert return statement here
-//}
-//
-//Time& Time::operator+=(long h)
-//{
-//    // TODO: insert return statement here
-//}
-//
-//Time& Time::operator-=(long h)
-//{
-//    // TODO: insert return statement here
-//}
-//
-//Time Time::operator+(float s) const&
-//{
-//    return Time();
-//}
-//
-//Time Time::operator-(float s) const&
-//{
-//    return Time();
-//}
-//
-//Time Time::operator+(int m) const&
-//{
-//    return Time();
-//}
-//
-//Time Time::operator-(int m) const&
-//{
-//    return Time();
-//}
-//
-//Time Time::operator+(long h) const&
-//{
-//    return Time();
-//}
-//
-//Time Time::operator-(long h) const&
-//{
-//    return Time();
-//}
+Time& Time::operator+=(float s)
+{
+    for (int i = 0; i < s; i++) {
+        tickTime();
+    }
+    return *this;
+}
+
+Time& Time::operator-=(float s)
+{
+    for (int i = 0; i < s; i++) {
+        untickTime();
+    }
+    return *this;
+}
+
+Time& Time::operator+=(int m)
+{
+    int ov = hour * 60 + minutes + m;
+    ov = (ov + 24 * 60) % (24 * 60);
+    hour = ov / 60;
+    minutes = ov % 60;
+    return *this;
+}
+
+Time& Time::operator-=(int m)
+{
+    int ov = hour * 60 + minutes - m;
+    ov = (ov + 24 * 60) % (24 * 60);
+    hour = ov / 60;
+    minutes = ov % 60;
+    return *this;
+}
+
+Time& Time::operator+=(long h)
+{
+    hour = (hour + h) % 24;
+    if (hour < 0) hour += 24;
+    return *this;
+}
+
+Time& Time::operator-=(long h)
+{
+    hour = (hour - h) % 24;
+    if (hour < 0) hour += 24;
+    return *this;
+}
+
+Time Time::operator+(float s) const&
+{
+    Time tmp = *this;
+    tmp += s;
+    return tmp;
+}
+
+Time Time::operator-(float s) const&
+{
+    Time tmp = *this;
+    tmp -= s;
+    return tmp;
+}
+
+Time Time::operator+(int m) const&
+{
+    Time tmp = *this;
+    tmp += m;
+    return tmp;
+}
+
+Time Time::operator-(int m) const&
+{
+    Time tmp = *this;
+    tmp -= m;
+    return tmp;
+}
+
+Time Time::operator+(long h) const&
+{
+    Time tmp = *this;
+    tmp += h;
+    return tmp;
+}
+
+Time Time::operator-(long h) const&
+{
+    Time tmp = *this;
+    tmp -= h;
+    return tmp;
+}
